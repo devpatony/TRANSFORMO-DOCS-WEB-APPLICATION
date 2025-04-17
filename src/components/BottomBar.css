@@ -1,0 +1,44 @@
+.bottom-bar {
+  background: linear-gradient(to right, #3b82f6, #4f46e5);
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-bar-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.bottom-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-links li {
+  margin: 0;
+}
+
+.bottom-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.bottom-links a:hover {
+  color: #d1d5db;
+}

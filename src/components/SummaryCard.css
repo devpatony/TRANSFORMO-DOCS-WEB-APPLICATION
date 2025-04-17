@@ -1,0 +1,16 @@
+.doc-detail-card {
+  background: #fdfdfd;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-left: 4px solid #007bff;
+  border-radius: 10px;
+}
+
+.doc-detail-card pre {
+  background: #f4f4f4;
+  padding: 1rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-radius: 8px;
+}

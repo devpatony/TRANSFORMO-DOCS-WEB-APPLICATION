@@ -1,78 +1,79 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../components/UploadForm.css';
 
 const Feature2 = () => {
   const [file, setFile] = useState(null);
-  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const navigate = useNavigate();
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-    setMessage('');
-  };
+  const uploadFile = async () => {
+    if (!file) return;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+    const formData = new FormData();
+    formData.append('document', file);
 
-    if (!file) {
-      setMessage('Please upload a file.');
-      return;
+    setLoading(true);
+    setUploadSuccess(false);
+
+    try {
+      const res = await fetch('http://localhost:5000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (res.ok) {
+        setUploadSuccess(true);
+        setFile(null); // Clear the selected file
+      } else {
+        console.error('Error uploading file:', await res.json());
+      }
+    } catch (err) {
+      console.error('Error uploading file:', err);
+    } finally {
+      setLoading(false);
     }
-
-    const isConverted = convertToMachineReadable(file);
-
-    if (isConverted) {
-      setMessage('The file has been successfully converted to a machine-readable format!');
-    } else {
-      setMessage('Failed to convert the file. Please try again.');
-    }
-  };
-
-  const convertToMachineReadable = (file) => {
-    // Simulate a conversion process
-    const validExtensions = ['pdf', 'docx', 'txt'];
-    const fileExtension = file.name.split('.').pop().toLowerCase();
-    return validExtensions.includes(fileExtension);
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
-      <h1 className="text-3xl font-bold mb-6">Feature 2: Automate Machine-Readable Conversion</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
-      >
-        <div className="mb-4">
-          <label
-            htmlFor="file-upload"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
-            Upload Document
-          </label>
-          <input
-            type="file"
-            id="file-upload"
-            onChange={handleFileChange}
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
-          />
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full">
+        <h1 className="text-3xl font-bold mb-6 text-center text-green-600">
+          Automate Machine-Readable Conversion
+        </h1>
+        <p className="text-gray-600 text-center mb-6">
+          Upload your document to convert it into a machine-readable format.
+        </p>
+        <div className="upload-container">
+          <div className="drop-area">
+            <input
+              type="file"
+              id="fileElem"
+              accept=".pdf,.docx,.txt"
+              onChange={(e) => setFile(e.target.files[0])}
+              className="file-input"
+            />
+            <label className="file-input-label" htmlFor="fileElem">
+              {file ? file.name : 'Select a file'}
+            </label>
+          </div>
+          <div className="button-group">
+            <button onClick={uploadFile} disabled={loading}>
+              {loading ? 'Uploading...' : 'Upload'}
+            </button>
+          </div>
+          {uploadSuccess && (
+            <p className="upload-success-message">File converted successfully!</p>
+          )}
         </div>
         <button
-          type="submit"
-          className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          onClick={() => navigate('/feature3')}
+          className="mt-6 px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700"
         >
-          Convert Document
+          Next: Enhance Searchability & Accessibility →
         </button>
-      </form>
-      {message && (
-        <div
-          className={`mt-4 p-4 rounded-lg ${
-            message.includes('successfully')
-              ? 'bg-green-100 text-green-700'
-              : 'bg-red-100 text-red-700'
-          }`}
-        >
-          {message}
-        </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -2,6 +2,9 @@ import React from 'react';
 import { FileText, Search, BarChart, FileCheck, Accessibility, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SignInButton, SignUpButton } from '@clerk/clerk-react';
+import { SignOutButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
+
 
 const HomePage = () => {
   const handleScroll = (id) => {
@@ -25,16 +28,26 @@ const HomePage = () => {
               <a href="#how-it-works" className="text-gray-500 hover:text-gray-900">How It Works</a>
               <a href="#analytics" className="text-gray-500 hover:text-gray-900">Analytics</a>
               <div className="flex space-x-2">
-              <SignInButton>
-                <button className="px-4 py-2 text-blue-600 hover:text-blue-800 font-medium">
-                  Log In
-                </button>
-              </SignInButton>
-              <SignUpButton>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium">
-                  Sign Up
-                </button>
-              </SignUpButton>
+              <SignedOut>
+                  <SignInButton>
+                    <button className="px-4 py-2 text-blue-600 hover:text-blue-800 font-medium">
+                      Log In
+                    </button>
+                  </SignInButton>
+                  <SignUpButton>
+                    <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium">
+                      Sign Up
+                    </button>
+                  </SignUpButton>
+                </SignedOut>
+                {/* Show Logout button when signed in */}
+                <SignedIn>
+                  <SignOutButton>
+                    <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 font-medium">
+                      Logout
+                    </button>
+                  </SignOutButton>
+                </SignedIn>
               </div>
             </nav>
           </div>
@@ -49,12 +62,12 @@ const HomePage = () => {
               <h2 className="text-4xl font-bold mb-6">Transform Documents into Machine-Readable, Accessible Content</h2>
               <p className="text-xl mb-8">Our platform ensures your documents are machine-readable, accessible, summarized, and provide valuable analytics for informed decision-making.</p>
               <div className="flex space-x-4">
-                <button className="px-6 py-3 bg-white text-blue-700 rounded-md font-medium hover:bg-gray-100">Get Started</button>
-                <button className="px-6 py-3 border border-white text-white rounded-md font-medium hover:bg-blue-700">Learn More</button>
+                <a href='#features' className="px-6 py-3 bg-white text-blue-700 rounded-md font-medium hover:bg-gray-100">Get Started</a>
+                <a href='#features' className="px-6 py-3 border border-white text-white rounded-md font-medium hover:bg-blue-700">Learn More</a>
               </div>
             </div>
             <div className="hidden md:block">
-              <img src="/api/placeholder/500/400" alt="Document Transformation" className="rounded-lg shadow-lg" />
+              <img src="public\imagehome.jpg" alt="Document Transformation" className="rounded-lg shadow-lg" />
             </div>
           </div>
         </div>
@@ -150,9 +163,9 @@ const HomePage = () => {
                 <Search className="h-6 w-6 text-indigo-600" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Real-Time Document Collaboration</h3>
-              <p className="text-gray-600 flex-grow">Enable teams to collaborate on documents in real-time, improving productivity and reducing errors.</p>
+              <p className="text-gray-600 flex-grow">Chat with documents in real-time, improving productivity and reducing errors.</p>
               <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-sm text-gray-500">Live editing • Commenting • Version control</p>
+                <p className="text-sm text-gray-500">Live Chatting • Commenting </p>
               </div>
               <Link to="/feature6" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-center">
                 Learn More
@@ -279,7 +292,7 @@ const HomePage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <img src="/api/placeholder/500/400" alt="Analytics Dashboard" className="rounded-lg shadow-lg" />
+              <img src="public\dashboard.jpg" alt="Analytics Dashboard" className="rounded-lg shadow-lg" />
             </div>
             <div>
               <h3 className="text-2xl font-bold mb-6">Data-Driven Document Management</h3>
@@ -326,7 +339,11 @@ const HomePage = () => {
           <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Document Ecosystem?</h2>
           <p className="text-xl mb-8">Join organizations that use TransformoDocs to ensure their documents are machine-readable, accessible, and provide valuable insights.</p>
           <div className="flex justify-center space-x-4">
-            <button className="px-6 py-3 bg-white text-blue-700 rounded-md font-medium hover:bg-gray-100">Sign Up Free</button>
+          <SignUpButton>
+                    <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium">
+                      Sign Up Free
+                    </button>
+          </SignUpButton>
             <button className="px-6 py-3 border border-white text-white rounded-md font-medium hover:bg-blue-800">Request Demo</button>
           </div>
         </div>

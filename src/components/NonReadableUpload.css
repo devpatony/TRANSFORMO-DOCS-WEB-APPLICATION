@@ -1,0 +1,44 @@
+.drop-area {
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed #bbb;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.drop-area.drag-over {
+    border-color: #007bff;
+    background-color: #e8f0fe;
+}
+
+.drop-area p {
+    margin-bottom: 1rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-input-label {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-input-label:hover {
+    background-color: #0056b3;
+}
+
+.file-name {
+    margin-top: 1rem;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+}
